@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace ApiTest.Controllers;
 
@@ -12,10 +13,12 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IMapper _mapper;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper)
     {
         _logger = logger;
+        _mapper = mapper;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
@@ -28,5 +31,24 @@ public class WeatherForecastController : ControllerBase
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
+    }
+
+    [HttpGet]
+    [Route("user")]
+    public ActionResult GetUser()
+    {
+        var user = new User
+        {
+            Id = 1,
+            FirstName = "Cathy",
+            LastName = "Tester",
+            Email = "cathytest@gmail.com",
+            Address = "12 Bridge rd, Sydney, NSW 2000"
+        };
+
+        var userResult = _mapper.Map<UserViewModel>(user);
+
+        return Ok(userResult);
+
     }
 }
