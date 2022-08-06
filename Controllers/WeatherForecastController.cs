@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Microsoft.Extensions.Options;
+
 
 namespace ApiTest.Controllers;
 
@@ -14,11 +16,13 @@ public class WeatherForecastController : ControllerBase
 
     private readonly ILogger<WeatherForecastController> _logger;
     private readonly IMapper _mapper;
+    private readonly IOptions<Location> _locationOption;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper, IOptions<Location> locationOption)
     {
         _logger = logger;
         _mapper = mapper;
+        _locationOption = locationOption;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
@@ -51,4 +55,9 @@ public class WeatherForecastController : ControllerBase
         return Ok(userResult);
 
     }
+
+    [HttpGet]
+    [Route("location")]
+    public ActionResult GetLocation() => Ok(_locationOption.Value);
+   
 }
