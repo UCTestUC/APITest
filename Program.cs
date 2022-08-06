@@ -1,3 +1,6 @@
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,12 +8,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen((c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { Title = "My API", 
-                Version = "v1" });
-            });
+builder.Services.AddSwaggerGen( options=>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "CZ test API",
+        Description = "An ASP.NET Core Web API for my fun testing",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Example Contact",
+            Url = new Uri("https://example.com/contact")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://example.com/license")
+        }
+    });
+});
 
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -29,7 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 */
 
-pp.UseSwagger();
+app.UseSwagger();
 app.UseSwaggerUI();
 
 

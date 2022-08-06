@@ -39,7 +39,7 @@ public class WeatherForecastController : ControllerBase
 
     [HttpGet]
     [Route("user")]
-    public ActionResult GetUser()
+    public ActionResult<User> GetUser()
     {
         var user = new User
         {
@@ -58,6 +58,6 @@ public class WeatherForecastController : ControllerBase
 
     [HttpGet]
     [Route("location")]
-    public ActionResult GetLocation() => Ok(_locationOption.Value);
+    public ActionResult<Location> GetLocation() => Ok(_locationOption.Value);
    
 }
