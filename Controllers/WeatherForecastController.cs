@@ -16,13 +16,13 @@ public class WeatherForecastController : ControllerBase
 
     private readonly ILogger<WeatherForecastController> _logger;
     private readonly IMapper _mapper;
-    private readonly IOptions<Location> _locationOption;
+    private readonly Location _location;
 
     public WeatherForecastController(ILogger<WeatherForecastController> logger, IMapper mapper, IOptions<Location> locationOption)
     {
         _logger = logger;
         _mapper = mapper;
-        _locationOption = locationOption;
+        _location = locationOption.Value;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
@@ -58,6 +58,6 @@ public class WeatherForecastController : ControllerBase
 
     [HttpGet]
     [Route("location")]
-    public ActionResult<Location> GetLocation() => Ok(_locationOption.Value);
+    public ActionResult<Location> GetLocation() => Ok($"{_locationOption} Test");
    
 }
