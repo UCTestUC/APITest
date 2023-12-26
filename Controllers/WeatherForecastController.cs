@@ -58,6 +58,7 @@ public class WeatherForecastController : ControllerBase
 
     [HttpGet]
     [Route("location")]
-    public ActionResult<Location> GetLocation() => Ok($"{_location} Test");
+    //$"{_location} Test"
+    public ActionResult<Location> GetLocation() => Ok(_location;
    
 }
