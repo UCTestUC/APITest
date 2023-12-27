@@ -59,7 +59,7 @@ steps:
     resourceGroupName: 'cztestrg'
     appSettings: |
       [ {
-          "name": "location_city",
+          "name": "location__city",
           "value": "central Coast",
           "slotSetting": false
          }]
